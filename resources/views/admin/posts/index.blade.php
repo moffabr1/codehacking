@@ -10,13 +10,13 @@
 
     <h1>Posts</h1>
 
-    <<table class="table">
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Photo</th>
                 <th>Owner</th>
                 <th>Category</th>
-                <th>Photo</th>
                 <th>Title</th>
                 <th>Body</th>
                 <th>Created</th>
@@ -32,9 +32,9 @@
 
             <tr>
                 <td>{{$post->id}}</td>
+                <td><img height="100" width="100" src="{{ $post->photo ? $post->photo->file : 'http://placehold.it/100x100' }}" alt=""></td>
                 <td>{{$post->user->name}}</td>
                 <td>{{$post->category_id}}</td>
-                <td>{{$post->photo_id}}</td>
                 <td>{{$post->title}}</td>
                 <td>{{$post->body}}</td>
                 <td>{{$post->created_at->diffForHumans()}}</td>
