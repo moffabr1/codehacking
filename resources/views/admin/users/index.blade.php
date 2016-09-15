@@ -8,6 +8,15 @@
 @section('content')
 
 
+    @if(Session::has('message'))
+
+        <p class="bg-danger">{{session('message')}}</p>
+
+
+     @endif
+
+
+
     <h1>Users</h1>
 
 

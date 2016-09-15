@@ -10,6 +10,7 @@ use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Session;
 
 class AdminUsersController extends Controller
 {
@@ -117,6 +118,9 @@ class AdminUsersController extends Controller
         User::create($input);
 
 
+        Session::flash('message', 'The User has been Created');
+
+
         return redirect('/admin/users');
 
 
@@ -214,6 +218,8 @@ class AdminUsersController extends Controller
 
         $user->update($input);
 
+        Session::flash('message', 'The User has been Updated');
+
         return redirect('/admin/users');
 
 //        return $request->all();
@@ -230,5 +236,28 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         //
+
+        //return "DESTROY";
+
+//        User::findOrFail($id)->delete();
+
+        $user = User::findOrFail($id);
+
+//        unlink(public_path() . "/images/" . $user->photo->file);
+        unlink(public_path() . $user->photo->file);
+
+        $user->delete();
+
+
+        //Session::flash('deleted_user', 'The User has been Deleted');
+        Session::flash('message', 'The User has been Deleted');
+
+
+
+
+
+        return redirect('/admin/users/');
+
+
     }
 }
