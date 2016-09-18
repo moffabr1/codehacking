@@ -12,6 +12,8 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
+
+
 class AdminPostsController extends Controller
 {
     /**
@@ -23,9 +25,7 @@ class AdminPostsController extends Controller
     {
         //
 
-        $posts = Post::all();
-
-
+        $posts = Post::paginate(5);
 
         return view('admin.posts.index', compact('posts'));
 
@@ -185,13 +185,38 @@ class AdminPostsController extends Controller
 
     }
 
-    public function post($id){
+//    public function post($id){
+//        $post = Post::findOrFail($id);
 
-        $post = Post::findOrFail($id);
+    public function post($slug){
+
+        $post = Post::findBySlugOrFail($slug);
 
         $comments = $post->comments()->whereIsActive(1)->get();
 
         return view('post', compact('post', 'comments'));
 
     }
+
+//
+//    public function post($id){
+//        $post = Post::findOrFail($id);
+//
+//        $comments = $post->comments()->whereIsActive(1)->get();
+//
+//        return view('post', compact('post', 'comments'));
+//
+//    }
+
+
+
+
+//        public function post($slug) {
+//
+//            //$post = Post::findOrFail($slug);
+//
+//            return "HELLO";
+//            //return $post;
+//
+//        }
 }
